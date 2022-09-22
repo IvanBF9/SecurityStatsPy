@@ -1,4 +1,13 @@
 import pandas as pd
-from chomage import get_chomeurs 
+import streamlit as st
+import matplotlib.pyplot as plt
+from chomage import get_chomeurs
 
-print(get_chomeurs())
+data_chomage = get_chomeurs()
+
+fig = plt.figure()
+
+plt.plot(data_chomage['Value']) 
+#plt.xlim(2008, 2022)
+
+st.pyplot(fig)
