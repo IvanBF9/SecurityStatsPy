@@ -13,8 +13,13 @@ def get_criminalite():
         #df['test']=df.iloc[:,-4:].sum(axis=1)
         #complain_types.transpose().sum()        
         df_sum = pd.DataFrame()
-        df_sum['date']=df['Unnamed: 0']
-        df_sum['value']=df.iloc[:,-abs(len(df.columns) - 1):].sum(axis=1)
+
+        df_sum['date'] = df['Unnamed: 0']
+        df_sum['date'] = pd.to_numeric(df_sum['date'])
+        df_sum['value'] = df.iloc[:,-abs(len(df.columns) - 1):].sum(axis=1)
+        df_sum = df_sum.sort_values(by=['date'])
+        df_sum = df_sum.set_index('date')
+
         return df_sum
 
 print(get_criminalite())
