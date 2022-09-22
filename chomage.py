@@ -10,7 +10,7 @@ def get_chomeurs():
     month_split = []
     year_split = []
 
-    for index, date_month in enumerate(df['TIME']):
+    for date_month in df['TIME']:
         year = date_month.split('-')[0]
         month = date_month.split('-')[1]
         year_split.append(year)
