@@ -17,9 +17,18 @@ def get_chomeurs():
         month_split.append(month)
 
     df['Year'] = year_split
-    df['Month'] = month_split
+    df = df.groupby('Year').agg({'Value' : ['mean']})['Value']#.sort_index()
+    
+    new_dataframe = pd.DataFrame(df)
+    new_dataframe.sort_index()
+    df.rename(columns={'mean': 'Value'}, inplace=True, errors='raise')
+
+    #df['Year'] = pd.to_numeric(df['Year'])
+    #df = df.sort_values(by=['Year'])
+    #df = df.set_index('Year')
+    #df['Month'] = month_split
     #df.drop(['TIME'], axis = 1, inplace = True)
-    return df
+    return new_dataframe
 
 
 print(get_chomeurs())

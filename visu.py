@@ -11,6 +11,7 @@ data_chomage = get_chomeurs()
 data_criminalite = get_criminalite()
 
 fig = plt.figure()
+plt.xticks(rotation=45)
 plt.plot(data_chomage['Value']) 
 #plt.xlim(2008, 2022
 
