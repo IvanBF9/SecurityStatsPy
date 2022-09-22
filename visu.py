@@ -12,7 +12,7 @@ data_criminalite = get_criminalite()
 
 fig = plt.figure()
 plt.xticks(rotation=45)
-plt.plot(data_chomage['Value']) 
+plt.plot(data_chomage['Value'])  
 #plt.xlim(2008, 2022
 
 st.pyplot(fig)
@@ -24,4 +24,5 @@ y=data_criminalite['value']
 st.bar_chart(y)
 #st.pyplot(plt.bar(x, y))
 #st.pyplot(fig)
-st.dataframe(data_criminalite)
+datacrime_list = data_criminalite.T
+st.dataframe(datacrime_list)
