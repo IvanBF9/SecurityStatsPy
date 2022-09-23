@@ -1,10 +1,9 @@
 import pandas as pd
+from population import get_population
 
 def get_chomeurs():
     df = pd.read_csv('./data/chomage/chomage.csv')
-
-    #df.drop(df.columns.difference(['TIME','Value']), 1, inplace=True)
-    #df = df.loc[:, df.columns.intersection(['TIME','Value'])]
+    
     df = df[['TIME', 'Value']]
 
     month_split = []
@@ -17,18 +16,24 @@ def get_chomeurs():
         month_split.append(month)
 
     df['Year'] = year_split
+    df['Year'] = pd.to_numeric(df['Year'])
     df = df.groupby('Year').agg({'Value' : ['mean']})['Value']#.sort_index()
     
     new_dataframe = pd.DataFrame(df)
     new_dataframe.sort_index()
     df.rename(columns={'mean': 'Value'}, inplace=True, errors='raise')
+    df['Value'] = pd.to_numeric(df['Value'])
 
-    #df['Year'] = pd.to_numeric(df['Year'])
-    #df = df.sort_values(by=['Year'])
-    #df = df.set_index('Year')
-    #df['Month'] = month_split
-    #df.drop(['TIME'], axis = 1, inplace = True)
     return new_dataframe
 
 
-print(get_chomeurs())
+def get_population_chomage():
+    df_chomage = get_chomeurs()
+    df_population = get_population()
+    df_population_chomage = pd.merge(df_chomage, df_population, left_index=True, right_index=True)
+    df_population_chomage['Value'] = (df_population_chomage['Value_y'] / 100) *  df_population_chomage['Value_x']
+    df_population_chomage = df_population_chomage[['Value']]
+    df_population_chomage = df_population_chomage.astype({'Value':'int'})
+    return df_population_chomage
+
+print(get_population_chomage())

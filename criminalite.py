@@ -8,10 +8,6 @@ def get_criminalite():
                 if col != 'Unnamed: 0':
                         columns_concat.append(col)
 
-        #complain_types = df.groupby(by=columns_concat, dropna=False)['Fee'].sum()
-        #df2 = df.groupby(columns_concat).sum()
-        #df['test']=df.iloc[:,-4:].sum(axis=1)
-        #complain_types.transpose().sum()        
         df_sum = pd.DataFrame()
 
         df_sum['date'] = df['Unnamed: 0']
