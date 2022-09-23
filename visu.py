@@ -32,24 +32,28 @@ st.bar_chart(population['Value'])
 
 st.title('Taux de chomage en France par année')
 st.write('Source : www.insee.fr')
+data_chomage.index = data_chomage.index.map(str)
 chart_data = pd.DataFrame(
     data_chomage,
     columns=['Value'])
 
-st.line_chart(chart_data)
+st.area_chart(chart_data)
 
 # Crimes population ratio
 st.title('Ratio crimes / population par année')
+concat.index = concat.index.map(str)
 chart_data = pd.DataFrame(
     concat,
     columns=['ratio'])
 
-st.line_chart(chart_data)
+st.area_chart(chart_data)
 
 st.title('Crimes et chomeurs par année')
 st.write('corrélation: ' + str(corr_crimes))
+crimes_chom = chomeurs_crimes()
+crimes_chom.index = crimes_chom.index.map(str)
 chart_data = pd.DataFrame(
-    chomeurs_crimes(),
+    crimes_chom,
     columns=['chomeurs', 'criminalite'])
 
 st.line_chart(chart_data)
