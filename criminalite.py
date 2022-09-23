@@ -18,4 +18,20 @@ def get_criminalite():
 
         return df_sum
 
-print(get_criminalite())
+def get_criminalite_by_dept():
+        dept_df = pd.read_csv('./data/Crimes/chiffre_departement_df_clean.csv')
+        dept_df = dept_df.groupby('departement').sum()
+        dept_df['sum'] = dept_df.iloc[:, 1:].sum(axis=1)
+        dept_df.sort_values(by=["sum"], inplace = True, ascending=False)
+        dept_df.drop(dept_df.columns.difference(['departement','sum']), 1, inplace=True)
+        dept_df = dept_df.astype({'sum':'int'})
+        dept_df.rename(columns={'sum': 'crimalite'},inplace=True, errors='raise')
+        dept_df['departement'] = dept_df.index.tolist()
+        dept_df['index'] = range(1, len(dept_df) + 1)
+        dept_df = dept_df.astype({'departement':'str'})
+        dept_df = dept_df.astype({'index':'int'})
+        dept_df = dept_df.set_index('index')
+
+        return dept_df
+
+print(get_criminalite_by_dept())
