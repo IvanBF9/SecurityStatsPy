@@ -44,8 +44,14 @@ def chomeurs_crimes():
     return chomeurs_crimes_df
 
 
+def corr_crime_chomage():
+    cor_df = chomeurs_crimes()
+    cor_df.drop([2020,2019], axis=0, inplace=True)
+    return cor_df['chomeurs'].corr(cor_df['criminalite'])
 
-print(chomeurs_crimes())
+
+
+print(corr_crime_chomage())
 #for date, row in criminalite.iteritems():
 #    if chomeurs.loc[chomeurs['Year'] == date] != None :
 #        print(chomeurs.loc[chomeurs['Year'] == date])

@@ -4,7 +4,7 @@ import streamlit as st
 import matplotlib.pyplot as plt
 from chomage import get_chomeurs
 from population import get_population
-from concat import ratio_crime_population, chomeurs_crimes
+from concat import ratio_crime_population, chomeurs_crimes, corr_crime_chomage
 
 # Import of datas
 data_chomage = get_chomeurs()
@@ -12,6 +12,7 @@ data_criminalite = get_criminalite()
 population = get_population()
 concat = ratio_crime_population()
 crime_by_dept = get_criminalite_by_dept()
+corr_crimes = corr_crime_chomage()
 
 st.title('Nombre de crimes en France par année')
 st.write('Source : www.data.gouv.fr')
@@ -46,6 +47,7 @@ chart_data = pd.DataFrame(
 st.line_chart(chart_data)
 
 st.title('Crimes et chomeurs par année')
+st.write('corrélation: ' + str(corr_crimes))
 chart_data = pd.DataFrame(
     chomeurs_crimes(),
     columns=['chomeurs', 'criminalite'])
